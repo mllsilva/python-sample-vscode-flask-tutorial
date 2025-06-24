@@ -6,10 +6,10 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+pool: Local_Agent
 
 strategy:
+  
   matrix:
     Python38:
       python.version: '3.8'
