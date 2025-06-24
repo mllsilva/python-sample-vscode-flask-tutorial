@@ -11,8 +11,8 @@ pool: Local_Agent
 strategy:
   
   matrix:
-   Python313:
-      python.version: '3.13'
+   Python312:
+      python.version: '3.12'
 
 steps:
 - task: UsePythonVersion@0
