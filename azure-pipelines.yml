@@ -1,32 +1,11 @@
-# azure-pipelines.yml - Versão detalhada
- 
-name: 1.0$(Rev:.r)  # Número de versão do pipeline
+# azure-pipelines.yml
  
 trigger:
-- main
+- main  # Dispara o pipeline quando houver alterações no branch main
  
-variables:
-  buildConfiguration: 'Release'
+pool: Local_Agent
+  #vmImage: 'ubuntu-latest'  # Você pode usar 'windows-latest' ou 'macos-latest' também
  
-jobs:
-- job: HelloWorld
-  displayName: 'Executar Hello World'
-  pool: Local_Agent
-  #  vmImage: 'ubuntu-latest'
-  steps:
-  - checkout: none  # Não faz checkout do código pois é só um exemplo
-  - task: Bash@3
-    displayName: 'Dizer Olá'
-    inputs:
-      targetType: 'inline'
-      script: |
-        echo "Hello, World from Azure DevOps!"
-        echo "Esta é a build número $(Build.BuildNumber)"
-  - task: PowerShell@2
-    displayName: 'Mostrar informações do sistema'
-    inputs:
-      targetType: 'inline'
-      script: |
-        Write-Host "Sistema operacional: $($env:Agent.OS)"
-        Write-Host "Diretório de trabalho: $($env:System.DefaultWorkingDirectory)"
-    condition: eq(variables['Agent.OS'], 'Windows_NT')  # Executa apenas no Windows
+steps:
+- script: echo "Hello, World!"
+  displayName: 'Executar mensagem Hello World'
