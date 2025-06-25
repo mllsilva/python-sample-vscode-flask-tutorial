@@ -1,46 +1,32 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
-
+# azure-pipelines.yml - Versão detalhada
+ 
+name: 1.0$(Rev:.r)  # Número de versão do pipeline
+ 
 trigger:
 - main
-
-pool: Local_Agent
-  #vmImage: ubuntu-latest
-
-strategy:
-  matrix:
-    Python36:
-      python.version: '3.6'
-
-steps:
-  - task: UsePythonVersion@0
+ 
+variables:
+  buildConfiguration: 'Release'
+ 
+jobs:
+- job: HelloWorld
+  displayName: 'Executar Hello World'
+  pool: Local_Agent
+  #  vmImage: 'ubuntu-latest'
+  steps:
+  - checkout: none  # Não faz checkout do código pois é só um exemplo
+  - task: Bash@3
+    displayName: 'Dizer Olá'
     inputs:
-      versionSpec: '$(python.version)'
-    displayName: 'Use Python $(python.version)'
-
-  - script: |
-      python -m pip install --upgrade pip
-      pip install -r requirements.txt
-    displayName: 'Install dependencies'
-
-  - task: ArchiveFiles@2
-    displayName: 'Archive files'
+      targetType: 'inline'
+      script: |
+        echo "Hello, World from Azure DevOps!"
+        echo "Esta é a build número $(Build.BuildNumber)"
+  - task: PowerShell@2
+    displayName: 'Mostrar informações do sistema'
     inputs:
-      rootFolderOrFile: $(System.DefaultWorkingDirectory)
-      includeRootFolder: false
-      archiveType: zip
-      archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-$(python.version).zip
-      replaceExistingArchive: true
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
-
-  - script: |
-      pip install pytest pytest-azurepipelines
-      pytest
-    displayName: 'pytest'
+      targetType: 'inline'
+      script: |
+        Write-Host "Sistema operacional: $($env:Agent.OS)"
+        Write-Host "Diretório de trabalho: $($env:System.DefaultWorkingDirectory)"
+    condition: eq(variables['Agent.OS'], 'Windows_NT')  # Executa apenas no Windows
