@@ -7,5 +7,5 @@ pool: Default
   #vmImage: 'ubuntu-latest'  # Você pode usar 'windows-latest' ou 'macos-latest' também
  
 steps:
-- script: echo "Hello, World!"
+- script: echo "Hello, World! Hello, World!"
   displayName: 'Executar mensagem Hello World'
