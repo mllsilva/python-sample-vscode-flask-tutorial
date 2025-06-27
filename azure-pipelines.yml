@@ -3,7 +3,7 @@
 trigger:
 - main  # Dispara o pipeline quando houver alterações no branch main
  
-pool: Default
+pool: Local_Agent
   #vmImage: 'ubuntu-latest'  # Você pode usar 'windows-latest' ou 'macos-latest' também
  
 steps:
