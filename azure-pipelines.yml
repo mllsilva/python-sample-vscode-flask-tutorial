@@ -4,7 +4,7 @@ trigger:
 - main  # Dispara o pipeline quando houver alterações no branch main
  
 pool: 
-  vmImage: 'ubuntu-latest'  # Você pode usar 'windows-latest' ou 'macos-latest' também
+  vmImage: 'windows-latest'  # Você pode usar 'ubuntu-latest', 'windows-latest' ou 'macos-latest' também
  
 steps:
 - script: echo "Hello, World! Hello, World!"
